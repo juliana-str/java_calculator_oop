@@ -1,21 +1,34 @@
 import operations.*;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Base {
+
+    public static double getNextDouble() {
+        Scanner scanner = new Scanner(System.in);
+        double value = 0;
+        try {
+            value = scanner.nextDouble();
+        } catch (InputMismatchException exception) {
+            System.out.println("Нужно ввести цыфры, будьте внимательнее.");
+            getNextDouble();
+        }return value;
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите первое число.");
-        double value1 = scanner.nextDouble();
+        double value1 = getNextDouble();
         System.out.println("Введите второе число.");
-        double value2 = scanner.nextDouble();
+        double value2 = getNextDouble();
         System.out.println("Пожалуйста введите необходимую операцию. Доступные операции: " + "\n" +
                 "Сложение чисел - '+'," + "\n" +
                 "Вычитание чисел - '-'," + "\n" +
                 "Умножение чисел - '*'," + "\n" +
                 "Деление чисел - '/'," + "\n" +
                 "Вычисление процента от числа - '%'," + "\n" +
-                "Вычиcление степени - '**',"
+                "Вычиcление степени - '**'."
         );
         String operation = scanner.next();
         scanner.close();
@@ -36,9 +49,9 @@ public class Base {
                 System.out.println(multiplicationResult);
                 break;
             case "/":
-                if (value2 == 0){
+                if (value2 == 0) {
                     System.out.println();
-                }else {
+                } else {
                     Division divisionResult = new Division(value1, value2, operation);
                     divisionResult.calculation(value1, value2);
                     System.out.println(divisionResult);
