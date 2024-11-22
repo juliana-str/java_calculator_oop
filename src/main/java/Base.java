@@ -13,7 +13,8 @@ public class Base {
         } catch (InputMismatchException exception) {
             System.out.println("Нужно ввести цыфры, будьте внимательнее.");
             getNextDouble();
-        }return value;
+        }
+        return value;
     }
 
     public static void main(String[] args) {
