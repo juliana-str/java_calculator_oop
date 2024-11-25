@@ -1,24 +1,33 @@
 import operations.*;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Base {
 
-    public static double getNextDouble() {
+    private static double getNextDouble() {
         Scanner scanner = new Scanner(System.in);
-        double value = 0;
+        double value;
         try {
             value = scanner.nextDouble();
         } catch (InputMismatchException exception) {
-            System.out.println("Нужно ввести цыфры, будьте внимательнее.");
-            getNextDouble();
+            System.out.println("Нужно ввести число, будьте внимательнее.");
+            value = getNextDouble();
         }
         return value;
     }
 
-    public static void main(String[] args) {
+    private static String getNext() {
         Scanner scanner = new Scanner(System.in);
+        String action = scanner.next();
+        List<String> actions = new ArrayList<>(Arrays.asList("+", "-", "*", "/", "**", "%"));
+        if (!actions.contains(action)) {
+            System.out.println("Неверный выбор операции, попробуйте еще раз.");
+            action = getNext();
+        }
+        return action;
+    }
+
+    public static void main(String[] args) {
         System.out.println("Введите первое число.");
         double value1 = getNextDouble();
         System.out.println("Введите второе число.");
@@ -31,8 +40,7 @@ public class Base {
                 "Вычисление процента от числа - '%'," + "\n" +
                 "Вычиcление степени - '**'."
         );
-        String operation = scanner.next();
-        scanner.close();
+        String operation = getNext();
         switch (operation) {
             case "+":
                 Addition additionResult = new Addition(value1, value2, operation);
@@ -67,9 +75,6 @@ public class Base {
                 PowerOfNumber powerOfNumberResult = new PowerOfNumber(value1, value2, operation);
                 powerOfNumberResult.calculation(value1, value2);
                 System.out.println(powerOfNumberResult);
-                break;
-            default:
-                System.out.println("Неверный выбор операции, попробуйте еще раз.");
         }
     }
 }
