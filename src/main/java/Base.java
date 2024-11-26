@@ -58,13 +58,9 @@ public class Base {
                 System.out.println(multiplicationResult);
                 break;
             case "/":
-                if (value2 == 0) {
-                    System.out.println();
-                } else {
-                    Division divisionResult = new Division(value1, value2, operation);
+                Division divisionResult = new Division(value1, value2, operation);
                     divisionResult.calculation(value1, value2);
                     System.out.println(divisionResult);
-                }
                 break;
             case "%":
                 Percent percentResult = new Percent(value1, value2, operation);
