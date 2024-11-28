@@ -8,9 +8,9 @@ public class Base {
         Scanner scanner = new Scanner(System.in);
         double value;
         try {
-            value = scanner.nextDouble();
-        } catch (InputMismatchException exception) {
-            System.out.println("Нужно ввести число, будьте внимательнее.");
+            value = Double.parseDouble(scanner.next());
+        } catch (InputMismatchException|NumberFormatException exception) {
+            System.out.println("Нужно ввести целое или дробное число с разделителем '.', будьте внимательнее.");
             value = getNextDouble();
         }
         return value;
