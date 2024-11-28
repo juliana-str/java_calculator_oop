@@ -1,6 +1,5 @@
 package operations;
 
-
 import static jdk.nashorn.internal.objects.Global.Infinity;
 
 public class Division extends Operations {
@@ -15,17 +14,17 @@ public class Division extends Operations {
     public double calculation(double value1, double value2) {
         try {
             this.result = value1 / value2;
-            throw new MyException();
-        } catch (NullPointerException | MyException ex) {
+        } catch (NullPointerException ex) {
             ex.printStackTrace();
         }
         return result;
-}
+    }
 
     @Override
     public String toString() {
         if (!(this.result == Infinity)) {
             return "Результат деления числа " + this.getNumber1() + " на число " + this.getNumber2() + ": " + this.result + ".";
-        }return "Попробуйте изменить данные.";
+        }
+        return "На 0 делить нельзя! Попробуйте изменить данные.";
     }
 }

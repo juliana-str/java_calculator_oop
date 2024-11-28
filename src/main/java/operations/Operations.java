@@ -11,7 +11,7 @@ public abstract class Operations {
         this.operation = operation;
     }
 
-    public abstract double calculation(double value1, double value2);
+    public abstract double calculation(double value1, double value2) throws MyException;
 
     public double getNumber1() {
         return number1;
