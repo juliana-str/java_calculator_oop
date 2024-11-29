@@ -1,4 +1,3 @@
-import operations.*;
 import org.junit.jupiter.api.*;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -10,10 +9,18 @@ public class BaseTest {
 
     @DisplayName("Тест наличия сущности.")
     @Test
-    public void checkBaseTest() {
-        System.out.println("checkBaseTest");
-        Base base = new Base();
-        assertNotNull(base);
+    public void checkCalculatorTest() {
+        System.out.println("checkCalculatorTest");
+        Calculator calculator = new Calculator();
+        assertNotNull(calculator);
+    }
+
+    public Calculator createCalculator(double val1, double val2, String operation) {
+        Calculator calculator = new Calculator();
+        calculator.setValue1(val1);
+        calculator.setValue2(val2);
+        calculator.setOperation(operation);
+        return calculator;
     }
 
     @DisplayName("Тест сложения.")
@@ -22,11 +29,9 @@ public class BaseTest {
         System.out.println("checkAdditionTest");
         double value1 = ThreadLocalRandom.current().nextDouble(10);
         double value2 = ThreadLocalRandom.current().nextDouble(10);
-        Addition addition = new Addition(value1, value2, "addition");
-        addition.calculation(value1, value2);
+        Calculator calculator = createCalculator(value1, value2, "+");
         String result = "Результат сложения чисел " + value1 + " и " + value2 + ": " + (value1 + value2) + ".";
-        assertNotNull(addition);
-        assertEquals(result, String.valueOf(addition));
+        assertEquals(result, calculator.getResult());
     }
 
     @DisplayName("Тест вычитания.")
@@ -35,11 +40,9 @@ public class BaseTest {
         System.out.println("checkSubstractionTest");
         double value1 = ThreadLocalRandom.current().nextDouble(10);
         double value2 = ThreadLocalRandom.current().nextDouble(10);
-        Subtraction subtraction = new Subtraction(value1, value2, "substraction");
-        subtraction.calculation(value1, value2);
+        Calculator calculator = createCalculator(value1, value2, "-");
         String result = "Результат вычитания чисел " + value1 + " и " + value2 + ": " + (value1 - value2) + ".";
-        assertNotNull(subtraction);
-        assertEquals(result, String.valueOf(subtraction));
+        assertEquals(result, calculator.getResult());
     }
 
     @DisplayName("Тест умножения.")
@@ -48,11 +51,9 @@ public class BaseTest {
         System.out.println("checkMultiplicationTest");
         double value1 = ThreadLocalRandom.current().nextDouble(10);
         double value2 = ThreadLocalRandom.current().nextDouble(10);
-        Multiplication multiplication = new Multiplication(value1, value2, "multiplication");
-        multiplication.calculation(value1, value2);
+        Calculator calculator = createCalculator(value1, value2, "*");
         String result = "Результат умножения чисел " + value1 + " и " + value2 + ": " + (value1 * value2) + ".";
-        assertNotNull(multiplication);
-        assertEquals(result, String.valueOf(multiplication));
+        assertEquals(result, calculator.getResult());
     }
 
     @DisplayName("Тест деления.")
@@ -61,11 +62,9 @@ public class BaseTest {
         System.out.println("checkDivisionTest");
         double value1 = 10;
         double value2 = 5;
-        Division division = new Division(value1, value2, "division");
-        division.calculation(value1, value2);
+        Calculator calculator = createCalculator(value1, value2, "/");
         String result = "Результат деления числа " + value1 + " на число " + value2 + ": " + (value1 / value2) + ".";
-        assertNotNull(division);
-        assertEquals(result, String.valueOf(division));
+        assertEquals(result, calculator.getResult());
     }
 
     @DisplayName("Тест деления/деление на 0.")
@@ -74,10 +73,9 @@ public class BaseTest {
         System.out.println("checkDivisionExceptionTest");
         double value1 = 10;
         double value2 = 0;
-        Division division = new Division(value1, value2, "division");
-        division.calculation(value1, value2);
+        Calculator calculator = createCalculator(value1, value2, "/");
         String result = "На 0 делить нельзя! Попробуйте изменить данные.";
-        assertEquals(result, String.valueOf(division));
+        assertEquals(result, calculator.getResult());
     }
 
     @DisplayName("Тест нахождения процента от числа.")
@@ -86,11 +84,9 @@ public class BaseTest {
         System.out.println("checkPercentTest");
         double value1 = ThreadLocalRandom.current().nextDouble(10);
         double value2 = 10;
-        Percent percent = new Percent(value1, value2, "percent");
-        percent.calculation(value1, value2);
+        Calculator calculator = createCalculator(value1, value2, "%");
         String result = value2 + "% от числа " + value1 + ": " + (value1 / 100 * value2) + ".";
-        assertNotNull(percent);
-        assertEquals(result, String.valueOf(percent));
+        assertEquals(result, calculator.getResult());
     }
 
     @DisplayName("Тест возведения в степень.")
@@ -99,12 +95,10 @@ public class BaseTest {
         System.out.println("checkPowerOfNumberTest");
         double value1 = 10;
         double value2 = 3;
-        PowerOfNumber powerOfNumber = new PowerOfNumber(value1, value2, "powerOfNumber");
-        powerOfNumber.calculation(value1, value2);
+        Calculator calculator = createCalculator(value1, value2, "**");
         String result = "Результат возведения числа " + value1 + " в степень " + value2 + ": " + (Math.pow(value1, value2))
                 + ".";
-        assertNotNull(powerOfNumber);
-        assertEquals(result, String.valueOf(powerOfNumber));
+        assertEquals(result, calculator.getResult());
     }
 
     @BeforeEach
@@ -112,6 +106,7 @@ public class BaseTest {
         CommentSteps.addComment(CommentSteps.COMMENT_MINUS);
         CommentSteps.addComment("СТАРТ ТЕСТА");
         CommentSteps.addComment(CommentSteps.COMMENT_MINUS);
+
     }
 
     @AfterEach
